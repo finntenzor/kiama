@@ -30,38 +30,16 @@ class BackendReport extends Model
     ];
 
     /**
-     * @param string $value
-     * @return array
+     * @var array
      */
-    public function getAuthAttr($value)
-    {
-        return json_decode($value, true);
-    }
+    protected $json = [
+        'auth',
+        'details'
+    ];
 
     /**
-     * @param array $value
-     * @return string
+     * @var bool
+     * 设置JSON数据返回数组
      */
-    public function setAuthAttr($value)
-    {
-        return json_encode($value);
-    }
-
-    /**
-     * @param string $value
-     * @return array
-     */
-    public function getDetailsAttr($value)
-    {
-        return json_decode($value, true);
-    }
-
-    /**
-     * @param array $value
-     * @return string
-     */
-    public function setDetailsAttr($value)
-    {
-        return json_encode($value);
-    }
+    protected $jsonAssoc = true;
 }
