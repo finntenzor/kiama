@@ -13,13 +13,17 @@
 // | 应用设置
 // +----------------------------------------------------------------------
 
+use think\facade\Env;
+
+$APP_STATUS = Env::get('APP_STATUS', 'development', false);
+
 return [
     // 应用名称
     'app_name'               => '',
     // 应用地址
     'app_host'               => '',
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => ($APP_STATUS === 'development'),
     // 应用Trace
     'app_trace'              => false,
     // 是否支持多模块
