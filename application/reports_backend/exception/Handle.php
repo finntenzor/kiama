@@ -145,10 +145,21 @@ class Handle extends ThinkHandle
     protected function saveReportToLog(Exception $exception, string $anchor = 'Anchor')
     {
         // 收集错误数据
-        $details = $this->getDetails($exception);
+        $exceptionDetails = $this->getDetails($exception);
+        $details = [
+            'title' => $exceptionDetails['message'],
+            'method' => Request::method(),
+            'url' => Request::url(true),
+            'auth' => [],
+            'details' => $exceptionDetails,
+            'report_at' => Util::now(),
+        ];
 
         // 保存到日志
-        $content = json_encode($details, JSON_UNESCAPED_UNICODE);
+        $content = json_encode($details, (JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_IGNORE));
+        if ($content === false) {
+            $content = '错误信息JSON化失败';
+        }
         Log::record("[Error $anchor]", 'error');
         Log::record($content, 'error');
     }

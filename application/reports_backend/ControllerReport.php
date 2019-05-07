@@ -4,6 +4,7 @@ namespace app\reports_backend;
 
 use think\Controller;
 use app\reports_backend\model\ModelReport;
+use think\facade\Url;
 
 class ControllerReport extends Controller
 {
