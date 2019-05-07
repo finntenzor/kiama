@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
@@ -9,12 +10,13 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('think', function () {
-    return 'hello,ThinkPHP5!';
+use app\reports_backend\Report;
+
+Route::group('api', function () {
 });
 
-Route::get('hello/:name', 'index/hello');
+Route::group('dev', function () {
+    Report::route('reports_backend');
+});
 
-return [
-
-];
+Route::miss('index/Index/miss');

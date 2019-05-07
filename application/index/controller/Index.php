@@ -1,6 +1,8 @@
 <?php
 namespace app\index\controller;
 
+use think\facade\Response;
+
 class Index
 {
     public function index()
@@ -11,5 +13,12 @@ class Index
     public function hello($name = 'ThinkPHP5')
     {
         return 'hello,' . $name;
+    }
+
+    public function miss()
+    {
+        return Response::create([
+            'message' => '404 Not Found'
+        ], 'json', 404);
     }
 }
