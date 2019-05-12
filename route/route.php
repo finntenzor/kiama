@@ -11,12 +11,14 @@
 // +----------------------------------------------------------------------
 
 use app\reports_backend\Report;
+use app\swagger\Swagger;
 
 Route::group('api', function () {
 });
 
 Route::group('dev', function () {
     Report::route('reports_backend');
+    Swagger::route('swagger');
 });
 
 Route::miss('index/Index/miss');
