@@ -27,6 +27,7 @@ class Report
     public static function route($groupName)
     {
         return Route::group($groupName, function () {
+            // TODO 将前端代码上传至git
             // 错误报告前端页面
             Route::get('/', '\app\reports_backend\ControllerReport@ui')
                 ->name(self::ROUTE_PREFIX . 'ui');

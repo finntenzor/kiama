@@ -1,9 +1,6 @@
 <?php
 
-namespace app\group_auth\model;
-
-use think\Model;
-use app\group_auth\abstracts\Auth;
+namespace app\group_auth\traits;
 
 /**
  * Class User
@@ -19,27 +16,8 @@ use app\group_auth\abstracts\Auth;
  * @property string sso_token 单点登录token
  * @property array extra 扩展信息
  */
-class User extends Model implements Auth
+trait HasPermission
 {
-    /**
-     * @var string
-     */
-    protected $table = 'auth_user';
-
-    /**
-     * @var array
-     */
-    protected $type = [
-        'last_login' => 'float'
-    ];
-
-    /**
-     * @var array
-     */
-    protected $json = [
-        'extra'
-    ];
-
     /**
      * @var bool
      * 设置JSON数据返回数组
@@ -56,10 +34,15 @@ class User extends Model implements Auth
      */
     protected function initialize()
     {
+        parent::initialize();
         $this->with(['groups', 'groups.permissions', 'directPermissions']);
-        $this->hidden(['is_sso', 'sso_token', 'password']);
+        $this->hidden(['password']);
         $this->hidden(['pivot']);
         $this->append(['permissions', 'directPermissions', 'groups']);
+
+        if (method_exists($this, 'extraInitialize')) {
+            $this->extraInitialize();
+        }
     }
 
     /**
